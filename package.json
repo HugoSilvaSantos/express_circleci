@@ -1,0 +1,31 @@
+{
+  "name": "express_circleci",
+  "version": "1.0.0",
+  "description": "Test to Circle CI, using Node.js and Express.js",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "mocha ./test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HugoSilvaSantos/express_express_circleci.git"
+  },
+  "keywords": [
+    "HTTPS",
+    "Express",
+    "Node"
+  ],
+  "author": "Hugo Santos",
+  "license": "ISC",
+  "homepage": "https://github.com/HugoSilvaSantos/express_circleci",
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.1.0",
+    "really-need": "^1.9.2",
+    "should": "^11.1.0",
+    "supertest": "^2.0.0"
+  }
+}
