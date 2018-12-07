@@ -1,0 +1,9 @@
+node_modules/
+data/
+.dockerignore
+Dockerfile
+npm-debug.log
+.git
+README.md
+.DS_Store
+.nyc_output

@@ -1,7 +1,7 @@
 version: 2
-jobs:
+  # The build job
   build:
-    working_directory: ~/repo
+    working_directory: ~/project
     docker:
       - image: circleci/node:8.9.4
     steps:
@@ -12,4 +12,39 @@ jobs:
       - run:
           name: Run tests
           command: npm test
+  # The deploy job
+  deploy:
+    docker:
+      - image: circleci/python:2.7
+    working_directory: ~/project
+    steps:
+      - checkout
+      - run:
+          name: Install awscli
+          command: |
+            sudo pip install awsebcli --upgrade
+      - run:
+          name: Create AWS credentials manually
+          command: |
+            mkdir ~/.aws
+            touch ~/.aws/config
+            chmod 600 ~/.aws/config
+            echo "[profile eb-cli]" > ~/.aws/config
+            echo "aws_access_key_id=$AWS_ACCESS_KEY_ID" >> ~/.aws/config
+            echo "aws_secret_access_key=$AWS_SECRET_ACCESS_KEY" >> ~/.aws/config
+      - run:
+          name: Deploy to EB if branch is Master
+          command: |
+            eb use express_circleci --profile eb-cli
+            eb deploy -v --staged --profile eb-cli
 
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - deploy:
+          filters:
+            branches:
+              only:
+                - master
