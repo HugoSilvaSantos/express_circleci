@@ -36,7 +36,6 @@ jobs:
       - run:
           name: Deploy to EB if branch is Master
           command: |
-            eb use express-circleci-dev --profile eb-cli
             eb deploy -v --staged --profile eb-cli
 
 workflows:
